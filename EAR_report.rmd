@@ -1,0 +1,69 @@
+---
+title: "Capacity Building Activities Report"
+author: "EAR Team"
+date: "June 28, 2015"
+output: pdf_document
+classoption: landscape
+---
+
+
+```{r, echo=FALSE}
+##Get working directory 
+if(Sys.info()[7] == "rockc_000"){ # Josh
+    setwd("~/GitHub/EAR/")
+} else if(Sys.info()[5] == "x86_64"){
+  setwd("~/Dropbox/ad_hoc_R/EAR")  #Mac
+} else {
+  setwd("C:/Users/rahija/Dropbox/ad_hoc_R/EAR") #FAO
+}
+
+# library(devtools)
+# install.packages("cellranger")
+# install_github(repo = "jennybc/googlesheets")
+
+library(ggplot2)
+source('retrieveGoogle.R')
+
+```
+
+A quick summary of the capacity development activities:
+
+```{r, echo=FALSE, eval=FALSE}
+suppressMessages({
+capDev <- retrieveGoogle(wbtitle = c("Capacity Building database - Team X",
+                                     "Capacity Building database - Team Y"),
+                         reportype = "Capacity Building")
+})
+
+knitr::kable(capDev[, c("Project", "Country", "Status")],
+             caption = "Overview", align = "l") 
+```
+
+A quick summary of the available code/algorithms:
+
+```{r, echo=FALSE}
+suppressMessages({
+codeRep <- retrieveGoogle(wbtitle = c("Capacity Building database - Team X",
+                                      "Capacity Building database - Team Y"),
+                          reportype = "Code Repo")
+})
+knitr::kable(codeRep[, c("Algorithm_Title", "Language", "Department", "Team")],
+                       caption = "Overview", align = "l") 
+```
+
+Here's a summary of the capacity development activities by country:
+
+```{r, echo=FALSE, eval=FALSE}
+knitr::kable(capDev[, c("Project", "Country", "Status")],
+             caption = "Overview", align = "l") 
+```
+
+Here's a summary of the programming languages used by team:
+
+```{r, echo=FALSE}
+summTab = table(codeRep[, c("Language", "Team")])
+knitr::kable(summTab, caption = "Summary by Language", align = "l")
+ggplot(codeRep, aes(x = Team, fill = Language)) +
+    geom_bar() + labs(y = "Algorithm Count")
+```
+
