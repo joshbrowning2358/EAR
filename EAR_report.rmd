@@ -1,11 +1,12 @@
 ---
 title: "Capacity Building Activities Report"
 author: "EAR Team"
-date: "June 28, 2015"
+date: "`r format(Sys.time(),'%B %d , %Y')`"
 output: pdf_document
 classoption: portrait
 ---
 
+## ESS Capacity Development
 
 ```{r, echo=FALSE}
 ###############################################################################
@@ -48,7 +49,7 @@ capDev <- retrieveGoogle(wbtitle = c("Capacity Building database - Team X",
                          reportype = "Capacity Building")
 })
 
-knitr::kable(capDev[, c("Project", "Country", "Status", "Team")],
+knitr::kable(capDev[, c("Project", "Country", "Status", "Team", "FAO_contact")],
              caption = "Capacity Development Overview", align = "l") 
 ```
 
@@ -57,7 +58,7 @@ Here's a summary of the capacity development activities by country:
 ```{r, echo=FALSE}
 summTab = capDev %>%
     group_by(Country) %>%
-    dplyr::summarize(Budget = sum(as.numeric(as.character(Budget))),
+    dplyr::summarize(#Budget = sum(as.numeric(as.character(Budget))),
                      Activities = n())
 knitr::kable(summTab, caption = "Capacity Development by Country", align = "l")
 ```
@@ -72,9 +73,9 @@ summTab <- capDev %>%
 summTab$region <- summTab$Country
 mapData <- left_join(mapData, summTab, by = "region")
 })})
-qplot(long, lat, fill = Budget, data = mapData, group = group,
-      geom ="polygon", ylab="", xlab="") +
-    scale_fill_continuous(label = dollar)
+# qplot(long, lat, fill = Budget, data = mapData, group = group,
+#       geom ="polygon", ylab="", xlab="") +
+#     scale_fill_continuous(label = dollar)
 ```
 
 ```{r, echo=FALSE, fig.cap='Activities by Country'}
@@ -83,6 +84,8 @@ qplot(long, lat, fill = Activities, data = mapData, group = group,
 ```
 
 \newpage
+
+## ESS Code Repository
 
 A quick summary of the available code/algorithms:
 
