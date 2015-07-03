@@ -9,8 +9,10 @@ classoption: landscape
 
 ```{r, echo=FALSE}
 ##Get working directory 
-if(Sys.info()[7] == "rockc_000"){ # Josh
-    setwd("~/GitHub/EAR/")
+if(Sys.info()[7] == "rockc_000"){ # Josh personal
+  setwd("~/GitHub/EAR/")
+} else if(Sys.info()[7] == "josh"){ # Josh work
+  setwd("~/Documents/Github/EAR/")
 } else if(Sys.info()[5] == "x86_64"){
   setwd("~/Dropbox/ad_hoc_R/EAR")  #Mac
 } else {
@@ -28,7 +30,7 @@ source('retrieveGoogle.R')
 
 A quick summary of the capacity development activities:
 
-```{r, echo=FALSE, eval=FALSE}
+```{r, echo=FALSE}
 suppressMessages({
 capDev <- retrieveGoogle(wbtitle = c("Capacity Building database - Team X",
                                      "Capacity Building database - Team Y"),
