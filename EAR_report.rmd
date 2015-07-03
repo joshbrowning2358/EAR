@@ -6,6 +6,8 @@ output: pdf_document
 classoption: portrait
 ---
 
+# ESS Activities Repository (EAR) Report
+
 ## ESS Capacity Development
 
 ```{r, echo=FALSE}
