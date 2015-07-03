@@ -1,12 +1,10 @@
 ---
-title: "Capacity Building Activities Report"
+title: "ESS Activities Repository (EAR) Report"
 author: "EAR Team"
 date: "`r format(Sys.time(),'%B %d , %Y')`"
 output: pdf_document
 classoption: portrait
 ---
-
-# ESS Activities Repository (EAR) Report
 
 ## ESS Capacity Development
 
