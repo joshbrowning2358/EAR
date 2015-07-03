@@ -3,11 +3,18 @@ title: "Capacity Building Activities Report"
 author: "EAR Team"
 date: "June 28, 2015"
 output: pdf_document
-classoption: landscape
+classoption: portrait
 ---
 
 
 ```{r, echo=FALSE}
+###############################################################################
+## To do:
+## - Change country boundaries to be FAO compliant using the FAOSTAT package.
+## - Wrap some of the table text, when necessary
+## - Get some real data!
+## - Add some more plots/tables based on management interest
+
 ##Get working directory 
 if(Sys.info()[7] == "rockc_000"){ # Josh personal
   setwd("~/GitHub/EAR/")
@@ -86,7 +93,7 @@ codeRep <- retrieveGoogle(wbtitle = c("Capacity Building database - Team X",
                           reportype = "Code Repo")
 })
 knitr::kable(codeRep[, c("Algorithm_Title", "Language", "Department", "Team")],
-                       caption = "Capacity Development Overview", align = "l") 
+                       caption = "Code Repository Overview", align = "l") 
 ```
 
 Here's a summary of the programming languages used by team:
