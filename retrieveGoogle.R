@@ -12,7 +12,8 @@ retrieveGoogle <- function(wbtitle = c("Capacity Building database - Team X",
       #clean-up column names
       cnames <- c("Project", "Country", "Partner_institution", "Status",
                   "Start", "Planned_finish", "FAO_contact", "Country_contact",
-                  "Source_of_funds", "Budget", "Team")
+                  "Source_of_funds", "Budget", "Currency",
+                  "Collaboration_Team", "Team")
   } else if(reportype == "Code Repo"){
       wbIndex = 2    
       #clean-up column names

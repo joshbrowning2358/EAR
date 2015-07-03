@@ -23,9 +23,13 @@ if(Sys.info()[7] == "rockc_000"){ # Josh personal
 # install.packages("cellranger")
 # install_github(repo = "jennybc/googlesheets")
 
+suppressMessages({
 library(ggplot2)
+library(maps)
+library(dplyr)
+library(scales)
 source('retrieveGoogle.R')
-
+})
 ```
 
 A quick summary of the capacity development activities:
@@ -37,9 +41,41 @@ capDev <- retrieveGoogle(wbtitle = c("Capacity Building database - Team X",
                          reportype = "Capacity Building")
 })
 
-knitr::kable(capDev[, c("Project", "Country", "Status")],
-             caption = "Overview", align = "l") 
+knitr::kable(capDev[, c("Project", "Country", "Status", "Team")],
+             caption = "Capacity Development Overview", align = "l") 
 ```
+
+Here's a summary of the capacity development activities by country:
+
+```{r, echo=FALSE}
+summTab = capDev %>%
+    group_by(Country) %>%
+    dplyr::summarize(Budget = sum(as.numeric(as.character(Budget))),
+                     Activities = n())
+knitr::kable(summTab, caption = "Capacity Development by Country", align = "l")
+```
+
+```{r, echo=FALSE, fig.cap='Budget by Country'}
+suppressMessages({
+mapData <- map_data(map = "world")
+summTab <- capDev %>%
+    group_by(Country) %>%
+    dplyr::summarize(Budget = sum(as.numeric(as.character(Budget))),
+                     Activities = n())
+summTab$region <- summTab$Country
+mapData <- left_join(mapData, summTab, by = "region")
+})
+qplot(long, lat, fill = Budget, data = mapData, group = group,
+      geom ="polygon", ylab="", xlab="") +
+    scale_fill_continuous(label = dollar)
+```
+
+```{r, echo=FALSE, fig.cap='Activities by Country'}
+qplot(long, lat, fill = Activities, data = mapData, group = group,
+      geom ="polygon", ylab="", xlab="")
+```
+
+\newpage
 
 A quick summary of the available code/algorithms:
 
@@ -50,22 +86,14 @@ codeRep <- retrieveGoogle(wbtitle = c("Capacity Building database - Team X",
                           reportype = "Code Repo")
 })
 knitr::kable(codeRep[, c("Algorithm_Title", "Language", "Department", "Team")],
-                       caption = "Overview", align = "l") 
-```
-
-Here's a summary of the capacity development activities by country:
-
-```{r, echo=FALSE, eval=FALSE}
-knitr::kable(capDev[, c("Project", "Country", "Status")],
-             caption = "Overview", align = "l") 
+                       caption = "Capacity Development Overview", align = "l") 
 ```
 
 Here's a summary of the programming languages used by team:
 
 ```{r, echo=FALSE}
-summTab = table(codeRep[, c("Language", "Team")])
+summTab <- table(codeRep[, c("Language", "Team")])
 knitr::kable(summTab, caption = "Summary by Language", align = "l")
 ggplot(codeRep, aes(x = Team, fill = Language)) +
     geom_bar() + labs(y = "Algorithm Count")
 ```
-
