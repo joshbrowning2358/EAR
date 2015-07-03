@@ -56,7 +56,7 @@ knitr::kable(summTab, caption = "Capacity Development by Country", align = "l")
 ```
 
 ```{r, echo=FALSE, fig.cap='Budget by Country'}
-suppressMessages({
+suppressMessages({ suppressWarnings({
 mapData <- map_data(map = "world")
 summTab <- capDev %>%
     group_by(Country) %>%
@@ -64,7 +64,7 @@ summTab <- capDev %>%
                      Activities = n())
 summTab$region <- summTab$Country
 mapData <- left_join(mapData, summTab, by = "region")
-})
+})})
 qplot(long, lat, fill = Budget, data = mapData, group = group,
       geom ="polygon", ylab="", xlab="") +
     scale_fill_continuous(label = dollar)
