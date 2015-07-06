@@ -22,9 +22,9 @@ if(Sys.info()[7] == "rockc_000"){ # Josh personal
 } else if(Sys.info()[7] == "josh"){ # Josh work
   setwd("~/Documents/Github/EAR/")
 } else if(Sys.info()[5] == "x86_64"){
-  setwd("~/Dropbox/ad_hoc_R/EAR")  #Mac
+  setwd("~/Dropbox/ad_hoc_R/EAR")  # Michael's Mac
 } else {
-  setwd("C:/Users/rahija/Dropbox/ad_hoc_R/EAR") #FAO
+  setwd("C:/Users/rahija/Dropbox/ad_hoc_R/EAR") #Michael - FAO
 }
 
 # library(devtools)
